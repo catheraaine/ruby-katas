@@ -22,19 +22,22 @@
 #    the frames, and calculate all their scores.
 # => The score for a spare or a strike depends on the frame’s successor.
 
-#Class Frame
 
-#end
-
-
-Class Game
+class Game
   attr_reader :score
 
   def initialize
-    @score = 0
+    @score = 0 #Test that the Score = 0
   end
 
+  def roll(pins)
 
+
+  end
+
+  def score()
+
+  end
 
 
 end
