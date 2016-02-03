@@ -56,11 +56,11 @@ end
 ######################################################################
 
 def print_test_name(method_name)
-  puts "#{method_name}".capitalize
+  puts "=> Running: #{method_name.capitalize}"
 end
 
 def print_result_of(a, b, c)
-  puts "Result of (#{a}, #{b}, #{c}): #{classify(a, b, c)}"
+  puts "    Result of (#{a}, #{b}, #{c}) is: #{classify(a, b, c)}."
 end
 
 # def test_is_a_triangle?
