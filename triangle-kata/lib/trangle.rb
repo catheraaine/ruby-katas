@@ -57,68 +57,36 @@ end
 
 class Triangle_test
 
-  def initialize(a_side, b_side, c_side)
+  def initialize(name, a_side, b_side, c_side)
     @a = a_side
     @b = b_side
     @c = c_side
+    @name = name
   end
+
 
   def print_result
     puts "    Result of (#{@a}, #{@b}, #{@c}) is: #{classify(@a, @b, @c)}."
   end
 
   def print_test_name
-    puts "=> Running: #{__method__.capitalize}"
+    puts "=> Running: #{@name.capitalize}"
   end
-  #
-  # def print_lengths
-  #   puts "The side lengths are: #{random_side_a}, #{random_side_b}, #{random_side_c}."
-  # end
 
 end
 
-def run_a_test(name, a, b, c)
-  name = Triangle_test.new(a, b, c)
+def run_a_test?(name, a, b, c)
+  name = Triangle_test.new(name, a, b, c)
   name.print_test_name
   name.print_result
 
 end
 
-# def test_is_a_triangle?
-#   print_test_name(__method__)
-#   print_result_of(82, 9, 2)
-# end
-#
-# test_is_a_triangle?
-
-def test_is_equilateral?
-  run_a_test('equilateral', 4, 4, 4)
-
-end
-
-test_is_equilateral?
-
-def test_is_scaline?
-  run_a_test('scaline', 2, 3, 4)
-end
-
-test_is_scaline?
-
-def test_is_isosceles?
-  run_a_test('isosceles', 4, 5, 5)
-end
-
-test_is_isosceles?
-
-def test_random_numbers?
-  random_side_a = (1 + rand(10))
-  random_side_b = (1 + rand(10))
-  random_side_c = (1 + rand(10))
-
-  run_a_test('random', random_side_a, random_side_b, random_side_c)
-end
-
-test_random_numbers?
+run_a_test?('equilateral', 4, 4, 4)
+run_a_test?('scaline', 2, 3, 4)
+run_a_test?('isosceles', 4, 5, 5)
+# run_a_test('not_a_triangle', 42, 5, 5)
+run_a_test?('random_numbers', (1 + rand(10)), (1 + rand(10)), (1 + rand(10)))
 
 
 
