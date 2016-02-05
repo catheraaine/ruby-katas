@@ -24,16 +24,32 @@
 
 
 class Game
-  attr_accessor :score
+  attr_accessor :score, :throws, :frames
 
   def initialize
     @score = 0
-
-
+    @throws = Array.new
+    @frames = 10
   end
 
   def roll(pins)
-    @score += pins
+    throws << pins
+    # @score += pins # why do I need the @ in this method??
+  end
+
+  def scoring
+    throw = 0
+
+    frames.times do
+      # if pins == 10
+      #
+      # elsif (throws[throw] + throws[throw + 1]) == 10
+      #
+      # else
+      @score += (throws[throw] + throws[throw +1])
+      throw +2
+    end
+    score
   end
 
 
