@@ -24,20 +24,18 @@
 
 
 class Game
-  attr_reader :score
+  attr_accessor :score
 
   def initialize
-    @score = 0 #Test that the Score = 0
+    @score = 0
+
+
   end
 
   def roll(pins)
-
-
+    @score += pins
   end
 
-  def score()
-
-  end
 
 
 end
