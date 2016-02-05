@@ -17,23 +17,27 @@ describe Game do
     end
 
   end
-  
-  it 'scores all zeros as zero' do
-      yeah_bowling = Game.new
 
-      20.times { yeah_bowling.roll(0) }
-      expect(yeah_bowling.score).to eq(0)
+  it 'scores all zeros as zero' do
+    yeah_bowling = Game.new
+    20.times { yeah_bowling.roll(0) }
+    expect(yeah_bowling.score).to eq(0)
 
   end
 
-  # it 'scores all 1s as 20' do
-  #
-  # end
-  #
-  # it 'scores all 4s as 80' do
-  #
-  # end
-  #
+  it 'scores all 1s as 20' do
+    yeah_bowling = Game.new
+    20.times { yeah_bowling.roll(1) }
+    expect(yeah_bowling.score).to eq(20)
+
+  end
+
+  it 'scores all 4s as 80' do
+    yeah_bowling = Game.new
+    20.times { yeah_bowling.roll(4) }
+    expect(yeah_bowling.score).to eq(80)
+  end
+
   # it 'scores all 5s (spares) as 150' do
   #
   # end
