@@ -64,12 +64,12 @@ describe Game do
       expect(yeah_bowling.scoring).to eq(24)
     end
 
-    # it 'scores all 10s as 300' do
-    #     yeah_bowling = Game.new
-    #     21.times { yeah_bowling.roll(10)}
-    #     expect(yeah_bowling.scoring).to eq(300)
-    #
-    # end
+    it 'scores all 10s as 300' do
+        yeah_bowling = Game.new
+        21.times { yeah_bowling.roll(10)}
+        expect(yeah_bowling.scoring).to eq(300)
+
+    end
 
   end
 
