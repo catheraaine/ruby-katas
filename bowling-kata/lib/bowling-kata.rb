@@ -23,16 +23,19 @@
 # => The score for a spare or a strike depends on the frame’s successor.
 
 class Frame
-  attr_accessor :roll1, :roll2
+  attr_accessor :rolls
 
-  def initialize (roll1, roll2)
-    @roll1 = roll1
-    @roll2 = roll2
+  def initialize
+    @rolls = Array.new
   end
 
   def score
-    roll1 + roll2
+    rolls.collect { |roll| roll.nil? ? 0 : roll }.reduce(:+)
   end
+
+  # def strike?
+  #   if roll[0]
+  # end
 
 end
 
@@ -42,36 +45,37 @@ class Game
 
   def initialize
     @throws = Array.new
-    @frames = 10
-
-  end
-
-  def frames
-    (throws.size / 2).ceil
-
   end
 
   def roll(pins)
     throws << pins
-    # @score += pins # why do I need the @ in this method??
+  end
+
+  def frames
+    (throws.size.fdiv 2).ceil
   end
 
   def scoring
     score = 0
+    new_throws = Array.new(throws)
 
-    frames.times do |frame_number|
-      frame = Frame.new(throws[frame_number], throws[frame_number + 1])
-      # if throws[throw] == 10
-      #   @score += (10 + throws[throw +1])
-      
-      if (frame.score  == 10)
-        score += (throws[throw + 2] + 10)
+    frames.times do
+      frame = Frame.new
+      frame.rolls << new_throws.shift
+      frame.rolls << new_throws.shift
+
+
+      if frame.score == 10
+        frame.rolls << new_throws.first
+        score += frame.score
 
       else
-        score += (throws[throw] + throws[throw +1])
-        frame_number
+        score += frame.score
+
       end
+
     end
+
     score
   end
 

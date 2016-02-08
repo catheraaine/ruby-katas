@@ -10,13 +10,13 @@ require_relative '../lib/bowling-kata'
 
 describe Game do
 
-  # context 'when the game starts' do
-  #   it 'should have a score of zero' do
-  #       yeah_bowling = Game.new
-  #       expect(yeah_bowling.scoring).to eq(0)
-  #   end
-  #
-  # end
+  context 'when the game starts' do
+    it 'should have a score of zero' do
+        yeah_bowling = Game.new
+        expect(yeah_bowling.scoring).to eq(0)
+    end
+
+  end
 
   it 'scores all zeros as zero' do
     yeah_bowling = Game.new
@@ -44,7 +44,7 @@ describe Game do
       yeah_bowling.roll(5)
       yeah_bowling.roll(5)
       yeah_bowling.roll(5)
-      expect(yeah_bowling.score).to eq(20)
+      expect(yeah_bowling.scoring).to eq(20)
     end
   end
 
