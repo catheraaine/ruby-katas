@@ -47,7 +47,7 @@ describe Game do
       expect(yeah_bowling.scoring).to eq(20)
     end
 
-    it 'scores all 5s as 150' do
+    it 'scores all spares as 150' do
       yeah_bowling = Game.new
       21.times { yeah_bowling.roll(5)}
       expect(yeah_bowling.scoring).to eq(150)
@@ -64,9 +64,9 @@ describe Game do
       expect(yeah_bowling.scoring).to eq(24)
     end
 
-    it 'scores all 10s as 300' do
+    it 'scores all strikes as 300' do
         yeah_bowling = Game.new
-        21.times { yeah_bowling.roll(10)}
+        12.times { yeah_bowling.roll(10)}
         expect(yeah_bowling.scoring).to eq(300)
 
     end
