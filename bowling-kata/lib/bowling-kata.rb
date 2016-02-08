@@ -67,22 +67,18 @@ class Game
     frame_limit.times do
       frame = Frame.new
       frame.rolls << new_throws.shift
-      frame.rolls << new_throws.shift
+      frame.rolls << new_throws.shift unless frame.strike?
 
       if frame.strike?
         frame.rolls << new_throws.first
-        frame.rolls << new_throws[2]
-        score += frame.score
+        frame.rolls << new_throws[1]
 
       elsif frame.spare?
         frame.rolls << new_throws.first
-        score += frame.score
-
-      else
-        score += frame.score
 
       end
 
+      score += frame.score
 
     end
 
