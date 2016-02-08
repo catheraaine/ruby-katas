@@ -10,18 +10,18 @@ require_relative '../lib/bowling-kata'
 
 describe Game do
 
-  context 'when the game starts' do
-    it 'should have a score of zero' do
-        yeah_bowling = Game.new
-        expect(yeah_bowling.score).to eq(0)
-    end
-
-  end
+  # context 'when the game starts' do
+  #   it 'should have a score of zero' do
+  #       yeah_bowling = Game.new
+  #       expect(yeah_bowling.scoring).to eq(0)
+  #   end
+  #
+  # end
 
   it 'scores all zeros as zero' do
     yeah_bowling = Game.new
     20.times { yeah_bowling.roll(0) }
-    expect(yeah_bowling.score).to eq(0)
+    expect(yeah_bowling.scoring).to eq(0)
 
   end
 
@@ -35,18 +35,23 @@ describe Game do
   it 'scores all 4s as 80' do
     yeah_bowling = Game.new
     20.times { yeah_bowling.roll(4) }
-
     expect(yeah_bowling.scoring).to eq(80)
   end
-  #
-  # it 'scores all 5s (spares) as 150' do
-  #   yeah_bowling = Game.new
-  #   20.times { yeah_bowling.roll(5) }
-  #   expect(yeah_bowling.score).to eq(150)
-  # end
+
+  context 'when a spare is acheived' do
+    it 'includes the next roll in the score' do
+      yeah_bowling = Game.new
+      yeah_bowling.roll(5)
+      yeah_bowling.roll(5)
+      yeah_bowling.roll(5)
+      expect(yeah_bowling.score).to eq(20)
+    end
+  end
 
   # it 'scores all strikes as 300' do
-  #
+  # yeah_bowling = Game.new
+  # 11.times { yeah_bowling.roll(10) }
+  # expect(yeah_bowling.score).to eq(300)
   # end
 
 
