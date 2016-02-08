@@ -33,18 +33,23 @@ class Frame
     rolls.collect { |roll| roll.nil? ? 0 : roll }.reduce(:+)
   end
 
-  # def strike?
-  #   if roll[0]
-  # end
+  def strike?
+    @rolls[0].to_i == 10
+
+  end
+
+  def spare?
+    @rolls[0].to_i + @rolls[1].to_i == 10 && !strike?
+  end
 
 end
 
-
 class Game
-  attr_accessor :score, :throws, :frames
+  attr_accessor :score, :throws, :frame_limit
 
   def initialize
     @throws = Array.new
+    @frame_limit = 10
   end
 
   def roll(pins)
@@ -59,13 +64,17 @@ class Game
     score = 0
     new_throws = Array.new(throws)
 
-    frames.times do
+    frame_limit.times do
       frame = Frame.new
       frame.rolls << new_throws.shift
       frame.rolls << new_throws.shift
 
+      if frame.strike?
+        frame.rolls << new_throws.first
+        frame.rolls << new_throws[2]
+        score += frame.score
 
-      if frame.score == 10
+      elsif frame.spare?
         frame.rolls << new_throws.first
         score += frame.score
 
@@ -73,6 +82,7 @@ class Game
         score += frame.score
 
       end
+
 
     end
 

@@ -46,13 +46,24 @@ describe Game do
       yeah_bowling.roll(5)
       expect(yeah_bowling.scoring).to eq(20)
     end
+
+    it 'scores all 5s as 150' do
+      yeah_bowling = Game.new
+      21.times { yeah_bowling.roll(5)}
+      expect(yeah_bowling.scoring).to eq(150)
+    end
+
   end
 
-  # it 'scores all strikes as 300' do
-  # yeah_bowling = Game.new
-  # 11.times { yeah_bowling.roll(10) }
-  # expect(yeah_bowling.score).to eq(300)
+  # context 'when a strike is acheived' do
+  #   it 'includes the next two rolls in the score' do
+  #     yeah_bowling = Game.new
+  #     yeah_bowling.roll(10)
+  #     yeah_bowling.roll(5)
+  #     yeah_bowling.roll(5)
+  #     expect(yeah_bowling.scoring).to eq(20)
+  #   end
+  #
   # end
-
 
 end
