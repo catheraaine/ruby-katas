@@ -12,7 +12,7 @@
 # Requirements
 
 # Create a class TriangleClassifier with the following method:
-# classify(len1, len2, len3)
+# type(len1, len2, len3)
 # This method accepts three numeric values each representing the
 # length of one side of a triangle. It returns a symbol,
 # :scalene, :isosceles, or :equilateral, where the return value
@@ -23,7 +23,14 @@
 # In this case, it should raise the error ArgumentError.
 
 ######################################################################
-def classify(a, b, c)
+class Trangle
+
+end
+
+
+
+
+def type(a, b, c)
 
   if #(a<=0) || (b<=0) || (c<=0) ||#
     (a+b<=c) || (b+c<=a) || (a+c<=b)
