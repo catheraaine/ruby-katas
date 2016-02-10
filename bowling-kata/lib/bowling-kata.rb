@@ -22,13 +22,20 @@
 #    the frames, and calculate all their scores.
 # => The score for a spare or a strike depends on the frame’s successor.
 
-require "frame"
+
+# CROMWELL BONUS CHALLENGE:
+# When players roll a 7 they should get an extra 2 points.
+# Add player input 'Driver' via command line.
+# Reduce .to_i
+
+require_relative "frame"
 
 class Game
   FRAME_LIMIT = 10
 
   def initialize
     @throws = Array.new
+
   end
 
   def roll(pins)
@@ -59,9 +66,10 @@ class Game
       end
       score += frame.score
 
-    end
 
+    end
     score
+
   end
 
 end

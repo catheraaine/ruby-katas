@@ -1,4 +1,3 @@
-require "bowling-kata"
 
 class Frame
 
