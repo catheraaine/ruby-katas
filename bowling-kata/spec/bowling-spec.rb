@@ -8,6 +8,11 @@ require_relative '../lib/bowling-kata'
 # A Frame total of 10 and two throws should score 10, plus the next throw.
 # A Game should stop after 10 Frames.
 
+# CROMWELL BONUS CHALLENGE:
+# When players roll a 7 they should get an extra 2 points.
+# Add player input 'Driver' via command line.
+# Reduce .to_i
+
 describe Game do
 
   context 'when the game starts' do

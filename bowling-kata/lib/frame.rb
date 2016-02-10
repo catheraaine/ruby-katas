@@ -1,33 +1,36 @@
 require "bowling-kata"
 
 class Frame
-  # When players roll a 7 they should get an extra 2 points.
-  # Add player input 'Driver' via command line.
-  # Reduce .to_i
 
-  attr_accessor :rolls
+  attr_accessor :rolls, :roll1, :roll2
 
   def initialize
     @rolls = Array.new
+    #
+    # @roll1 = rolls[0] || 0
+    # @roll2 = rolls[1] || 0
+
   end
 
   def score
-    rolls
-      .collect { |roll| roll.nil? ? 0 : roll }.reduce(:+)
+    rolls.collect { |roll| roll.nil? ? 0 : roll }.reduce(:+)
       # .tap { |roll| p roll }
   end
 
-  def strike?
-    @rolls[0].to_i == 10
+  def clean_roll(index)
+    rolls[index] || 0
+  end
 
+  def strike?
+    clean_roll(0) == 10
   end
 
   def spare?
-    @rolls[0].to_i + @rolls[1].to_i == 10 && !strike?
+    clean_roll(0) + clean_roll(1) == 10 && !strike?
   end
 
   def seven?
-    (@rolls[0].to_i == 7) || (@rolls[1].to_i == 7)
+    (clean_roll(0) == 7) || (clean_roll(1) == 7)
   end
 
 end

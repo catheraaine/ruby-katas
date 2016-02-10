@@ -41,6 +41,7 @@ class Game
 
     FRAME_LIMIT.times do
       frame = Frame.new
+
       frame.rolls << new_throws.shift
       frame.rolls << new_throws.shift unless frame.strike?
 
