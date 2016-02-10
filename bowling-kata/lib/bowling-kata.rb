@@ -23,6 +23,10 @@
 # => The score for a spare or a strike depends on the frame’s successor.
 
 class Frame
+  # When players roll a 7 they should get an extra 2 points.
+  # Add player input 'Driver' via command line.
+  # Reduce .to_i
+
   attr_accessor :rolls
 
   def initialize
@@ -30,7 +34,9 @@ class Frame
   end
 
   def score
-    rolls.collect { |roll| roll.nil? ? 0 : roll }.reduce(:+)
+    rolls
+      .collect { |roll| roll.nil? ? 0 : roll }.reduce(:+)
+      # .tap { |roll| p roll }
   end
 
   def strike?
@@ -42,29 +48,28 @@ class Frame
     @rolls[0].to_i + @rolls[1].to_i == 10 && !strike?
   end
 
+  def seven?
+    (@rolls[0].to_i == 7) || (@rolls[1].to_i == 7)
+  end
+
 end
 
 class Game
-  attr_accessor :score, :throws, :frame_limit
+  FRAME_LIMIT = 10
 
   def initialize
     @throws = Array.new
-    @frame_limit = 10
   end
 
   def roll(pins)
-    throws << pins
-  end
-
-  def frames
-    (throws.size.fdiv 2).ceil
+    @throws << pins
   end
 
   def scoring
     score = 0
-    new_throws = Array.new(throws)
+    new_throws = Array.new(@throws)
 
-    frame_limit.times do
+    FRAME_LIMIT.times do
       frame = Frame.new
       frame.rolls << new_throws.shift
       frame.rolls << new_throws.shift unless frame.strike?
@@ -78,13 +83,14 @@ class Game
 
       end
 
+      if frame.seven?
+          score += 2
+      end
       score += frame.score
 
     end
 
     score
   end
-
-
 
 end

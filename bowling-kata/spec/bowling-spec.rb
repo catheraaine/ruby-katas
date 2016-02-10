@@ -73,4 +73,14 @@ describe Game do
 
   end
 
+  context 'when a 7 is rolled' do
+    it 'adds two points to the score' do
+      yeah_bowling = Game.new
+      yeah_bowling.roll(1)
+      yeah_bowling.roll(7)
+      expect(yeah_bowling.scoring).to eq(10)
+    end
+
+  end
+
 end
