@@ -55,10 +55,9 @@ class Game
       if frame.strike?
         frame.rolls << new_throws.first
         frame.rolls << new_throws[1]
-
       elsif frame.spare?
         frame.rolls << new_throws.first
-
+      
       end
 
       if frame.seven?
