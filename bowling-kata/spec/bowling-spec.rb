@@ -84,4 +84,22 @@ describe Game do
 
   end
 
+  context 'raises an error' do
+    it 'when a string is entered' do
+      yeah_bowling = Game.new
+      expect( -> {yeah_bowling.roll("cookies")} ).to raise_error(BadPinsError)
+    end
+
+    it 'when a value greater than 11 is entered' do
+      yeah_bowling = Game.new
+      expect( -> {yeah_bowling.roll(42)} ).to raise_error(BadPinsError)
+    end
+
+    it 'when a value less than 0 is entered' do
+      yeah_bowling = Game.new
+      expect( -> {yeah_bowling.roll(-5)} ).to raise_error(BadPinsError)
+    end
+
+  end
+
 end

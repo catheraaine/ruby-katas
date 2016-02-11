@@ -30,6 +30,16 @@
 
 require_relative "frame"
 
+class String
+  def numeric?
+    Float(self) != nil
+  end
+end
+
+class BadPinsError < StandardError
+end
+
+
 class Game
   FRAME_LIMIT = 10
 
@@ -39,7 +49,17 @@ class Game
   end
 
   def roll(pins)
-    @throws << pins
+
+    if !"#{pins}".numeric?
+      raise BadPinsError, "Your roll must be a number."
+
+    elsif (pins < 0) || (pins > 10)
+      raise BadPinsError, "Your roll must be a number between 0 and 10."
+
+    else
+        @throws << pins
+    end
+
   end
 
   def scoring
@@ -57,7 +77,7 @@ class Game
         frame.rolls << new_throws[1]
       elsif frame.spare?
         frame.rolls << new_throws.first
-      
+
       end
 
       if frame.seven?
@@ -70,5 +90,7 @@ class Game
     score
 
   end
+
+
 
 end

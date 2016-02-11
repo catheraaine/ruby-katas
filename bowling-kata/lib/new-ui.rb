@@ -48,18 +48,29 @@ def newFrame
   puts "The current Frame is: #{@framecount}.".light_yellow
 end
 
+def grabRoll
+  begin
+    pins = gets.chomp
+    pins = Integer(pins)
+    return pins
+  rescue
+    print "Please enter a number: "
+    retry
+  end
+end
 
 def getThrows
   puts 'What was your first throw?'.light_blue
-  pins1 = gets.chomp.to_i || 0
+  pins1 = grabRoll
   @game.roll(pins1)
+  printScore
 
   if pins1 == 10
     puts "WOAH! A STRIKE!".magenta
     @strike = true
   else
     puts 'What was your second throw?'.light_blue
-    pins2 = gets.chomp.to_i || 0
+    pins2 = grabRoll
     @game.roll(pins2)
     @strike = false
   end
@@ -82,19 +93,20 @@ end
 def finalFrame
   puts "=> FINAL FRAME <=".blue
   puts 'What was your first throw?'.light_blue
-  pins1 = gets.chomp.to_i || 0
+  pins1 = grabRoll
   @game.roll(pins1)
+  printScore
 
   if pins1 == 10
     puts "WOAH! A STRIKE! Bonus throw time!".magenta
     bonusThrow
-    puts "And a strike earns you another..".light_blue
+    puts "And a strike earns you another..".magenta
     bonusThrow
     @strike = true
 
   else
     puts 'What was your second throw?'.light_blue
-    pins2 = gets.chomp.to_i || 0
+    pins2 = grabRoll
     @game.roll(pins2)
   end
 
