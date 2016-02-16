@@ -12,47 +12,47 @@
 
 
 class Cycle
-  attr_reader :cells, :evolved
+  attr_reader :cells, :evolved, :width, :height
 
   def initialize
-
   end
 
   def create_life(width, height, cell_state)
     @cells = cell_state
     @evolved = Array.new(width){Array.new(height)}
+
   end
 
   def lonely?
     @neighbors < 2
   end
 
-  def crowded?
-    @neighbors > 3
-  end
-
-  def happy?
-    @neighbors == 2 || @neighbors == 3
-  end
-
-  def zombie?
-    @neighbors == 3
-  end
+  # def crowded?
+  #   @neighbors > 3
+  # end
+  #
+  # def happy?
+  #   @neighbors == 2 || @neighbors == 3
+  # end
+  #
+  # def zombie?
+  #   @neighbors == 3
+  # end
 
   def neighbor_count(x, y)
     count = 0
-    count += 1 if (cells[x-1][y-1] == 1)
-    count += 1 if (cells[x-1][y] == 1)
-    count += 1 if (cells[x-1][y+1] == 1)
-    count += 1 if (cells[x][y+1] == 1)
-    count += 1 if (cells[x+1][y-1] == 1)
-    count += 1 if (cells[x+1][y] == 1)
-    count += 1 if (cells[x+1][y+1] == 1)
+    count += 1 if (cells[x - 1][y - 1] == 1)
+    count += 1 if (cells[x - 1][y] == 1)
+    count += 1 if (cells[x - 1][y + 1] == 1)
+    count += 1 if (cells[x][y + 1] == 1)
+    count += 1 if (cells[x + 1][y - 1] == 1)
+    count += 1 if (cells[x + 1][y] == 1)
+    count += 1 if (cells[x + 1][y + 1] == 1)
     return count
   end
 
   def fix_strings(n)
-    if n == '1'
+    if n == "1" || n == 1
       n = 1
     else
       n = 0
@@ -62,21 +62,20 @@ class Cycle
 
 
   def evolve
-    cells.each_index do |x|
-      x = fix_strings(x)
 
-      (cells[x]).each_index do |y|
+    cells.each_with_index do |x, xi|
+      x.each_with_index do |y, yi|
 
+        x = fix_strings(cells[xi])
         y = fix_strings(y)
 
         @neighbors = 0
         @neighbors += neighbor_count(x, y)
-        puts @neighbors
 
         if lonely?
-          evolved[x][y] = 0
+          evolved[xi][yi] = 0
         else
-          evolved[x][y] = cells[x][y]
+          evolved[xi][yi] = cells[xi][yi] || 0
         end
 
       end

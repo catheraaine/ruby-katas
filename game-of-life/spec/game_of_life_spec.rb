@@ -29,7 +29,7 @@ describe Cycle do
     context "has greater than two live neighbor cells" do
       it "becomes a dead cell" do
         # when cell = true & neighbor count > 3, cell = false
-
+        
       end
     end
 
