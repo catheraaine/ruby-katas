@@ -6,18 +6,23 @@ describe Cycle do
 
   context "when an array is passed in" do
     it "stores the values in a two-dimentional array" do
-      life.create_life([[0,0,0], [0,1,0], [0,0,0]])
+      life.create_life(3, 3, [[0,0,0], [0,1,0], [0,0,0]])
       expect(life.cells).to eq([[0,0,0], [0,1,0], [0,0,0]])
     end
 
+    it "can call a value correctly" do
+      life.create_life(3, 3, [[0,0,0], [0,1,0], [0,0,0]])
+      expect(life.cells[1][1]).to eq(1)
+
+    end
   end
 
   context "when a live cell" do
     context "has fewer than two live neighbor cells" do
       it "becomes a dead cell" do
         # When cell = true & neighbor count < 2, cell = false
-      #   life.create_life([[0,0,0], [0,1,0], [0,0,0]])
-      #   expect(life.evolve).to eq([[0,0,0], [0,0,0], [0,0,0]])
+        life.create_life(3, 3, [[0,0,0], [0,1,0], [0,0,0]])
+        expect(life.evolve).to eq([[0,0,0], [0,0,0], [0,0,0]])
       end
     end
 
