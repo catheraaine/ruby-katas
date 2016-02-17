@@ -1,6 +1,5 @@
 require_relative 'bowling-kata'
 require 'colorize'
-require_relative 'player'
 
 #################################################################
 ## Methods
