@@ -59,12 +59,12 @@ def getPlayers
   player_number = getPlayerNumber
 
   player_number.times do |player_num|
-    player = Player.new
+    # player = Player.new
     puts "Hey Player # #{player_num + 1}, what is your first name?"
     player_name = gets.chomp
-    player.storeName(player_name)
-    puts "#{player.name} has joined the game!"
-    @players[player.name] = player
+    # player.storeName(player_name)
+    puts "#{player_name} has joined the game!"
+    @players[player_name] = Game.new
   end
 
   beginScoring
@@ -73,28 +73,38 @@ end
 
 def beginScoring
   @framecount = 0
-  newFrame
-  @players.each_pair do |named, player|
-    puts "It is #{player.name}'s Turn!"
-    getThrows(named)
 
+  until @framecount == 9 do
+    newFrame
+    @players.each_pair do |named, player|
+      puts "It is #{named}'s Turn!".blue
+      getThrows(named)
+    end
+    printScore
   end
 
-end
+  puts "=> FINAL FRAME <=".blue
+  @players.each_pair do |named, player|
+    puts "It is #{named}'s Turn!".blue
+    finalFrame(named)
+  end
 
+  finalScore
+  endGame
+
+end
 
 def newFrame
   @framecount += 1
   puts "=> NEW FRAME <=".blue
-  puts "The current Frame is: #{@framecount}.".light_yellow
+  puts "The current Frame is: #{@framecount}".light_yellow
 end
 
 
 def getThrows(named)
   puts 'What was your first throw?'.light_blue
   pins1 = getInteger
-  @players[named].player_roll(pins1)
-  printScore
+  @players[named].roll(pins1)
 
   if pins1 == 10
     puts "WOAH! A STRIKE!".magenta
@@ -102,7 +112,7 @@ def getThrows(named)
   else
     puts 'What was your second throw?'.light_blue
     pins2 = getInteger
-    @players[named].player_roll(pins2)
+    @players[named].roll(pins2)
     @strike = false
   end
 
@@ -110,27 +120,55 @@ def getThrows(named)
     puts "Woah, cool! A Spare!".magenta
   end
 
-  printScore
-
-  # if @framecount == 9
-  #   finalFrame
-  # else
-  #   newFrame
-  #   getThrows
-  # end
-
 end
 
 def printScore
   puts "The current scores are: \n"
   @players.each_pair do |named, player|
-    "#{@players[named].name} - #{@players[named].scoring}.".light_yellow
+    puts "#{named} - #{@players[named].scoring}".yellow
   end
 
 end
 
 
+def finalFrame(named)
+  puts 'What was your first throw?'.light_blue
+  pins1 = getInteger
+  @players[named].roll(pins1)
 
+  if pins1 == 10
+    puts "WOAH! A STRIKE! Bonus throw time!".magenta
+    bonusThrow(named)
+    puts "And a Strike earns you another!".magenta
+    bonusThrow(named)
+    @strike = true
+
+  else
+    puts 'What was your second throw?'.light_blue
+    pins2 = getInteger
+    @players[named].roll(pins2)
+  end
+
+  if (pins1.to_i + pins2.to_i) == 10 && !@strike
+    puts "Woah, cool! A Spare! Bonus throw time!".magenta
+    bonusThrow(named)
+  end
+
+end
+
+def bonusThrow(named)
+  puts "What was your bonus throw?".light_blue
+  pins1 = getInteger
+  @players[named].roll(pins1)
+end
+
+def finalScore
+  puts "The *FINAL SCORE* is:".green
+  @players.each_pair do |named, player|
+    puts "#{named} - #{@players[named].scoring}".yellow
+  end
+
+end
 
 
 #################################################################
