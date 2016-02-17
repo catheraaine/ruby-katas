@@ -21,10 +21,15 @@ def newGame
   if answer == "Y" || answer == "y"
     puts "Okay. Let's start!"
     puts "Note: This game works best on a dark console window."
+
+    puts "How many players?"
+    player_number = gets.chomp
+
     puts "=> NEW GAME <=".green
     @game = Game.new
     @framecount = 0
     return true
+
   else
     puts "Okay. Bye!"
     endGame
