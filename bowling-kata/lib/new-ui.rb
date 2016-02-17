@@ -59,7 +59,7 @@ def grabRoll
     pins = Integer(pins)
     return pins
   rescue
-    print "Please enter a number: "
+    print "Please enter a number: \n"
     retry
   end
 end
