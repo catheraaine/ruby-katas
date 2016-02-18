@@ -29,7 +29,8 @@ describe Cycle do
     context "has greater than two live neighbor cells" do
       it "becomes a dead cell" do
         # when cell = true & neighbor count > 3, cell = false
-        
+        life.create_life(3, 3, [[1,0,1], [0,1,0], [1,1,1]])
+        expect(life.evolve).to eq([[1,0,1], [0,1,0], [1,1,1]])
       end
     end
 

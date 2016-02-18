@@ -12,9 +12,11 @@
 
 
 class Cycle
-  attr_reader :cells, :evolved, :width, :height
+  attr_reader :evolved, :width, :height
+  attr_accessor :cells
 
   def initialize
+
   end
 
   def create_life(width, height, cell_state)
@@ -27,17 +29,17 @@ class Cycle
     @neighbors < 2
   end
 
-  # def crowded?
-  #   @neighbors > 3
-  # end
-  #
-  # def happy?
-  #   @neighbors == 2 || @neighbors == 3
-  # end
-  #
-  # def zombie?
-  #   @neighbors == 3
-  # end
+  def crowded?
+    @neighbors > 3
+  end
+
+  def happy?
+    @neighbors == 2 || @neighbors == 3
+  end
+
+  def zombie?
+    @neighbors == 3
+  end
 
   def neighbor_count(x, y)
     count = 0
@@ -60,28 +62,33 @@ class Cycle
     return n
   end
 
-
   def evolve
 
+
     cells.each_with_index do |x, xi|
+
       x.each_with_index do |y, yi|
 
-        x = fix_strings(cells[xi])
+        x = fix_strings(x)
         y = fix_strings(y)
 
         @neighbors = 0
         @neighbors += neighbor_count(x, y)
 
         if lonely?
-          evolved[xi][yi] = 0
-        else
-          evolved[xi][yi] = cells[xi][yi] || 0
+          @evolved[xi][yi] = 0
+        elsif crowded?
+          @evolved[xi][yi] = 0
+        elsif happy?
+          @evolved[xi][yi] = 1
+        elsif zombie?
+          @evolved[xi][yi] = 1
         end
 
       end
     end
 
-    return evolved
+    return @evolved
 
   end
 
