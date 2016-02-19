@@ -41,9 +41,32 @@ class Cycle
     @neighbors == 3
   end
 
+  def is_negative?(n)
+    (n - 1) < 0
+  end
+
+  # def add_outside(x, y)
+  #
+  #   if !cells[x+1][y+1]
+  #     cells[x+1][y+1] = 0
+  #   end
+  #
+  #   if !cells[x+1][y]
+  #     cells[x+1][y] = 0
+  #   end
+  #
+  #   if !cells[x][y+1]
+  #     cells[x][y+1] = 0
+  #   end
+  #
+  # end
+
   def neighbor_count(x, y)
+
+    # add_outside(x, y)
+
     count = 0
-    count += 1 if (cells[x - 1][y - 1] == 1)
+    count += 1 if (cells[x - 1][y - 1] == 1) #cells.fetch(i) { |i| if i-1 >= 0 do i-1 else 0 end}   #=> 16
     count += 1 if (cells[x - 1][y] == 1)
     count += 1 if (cells[x - 1][y + 1] == 1)
     count += 1 if (cells[x][y + 1] == 1)
@@ -52,28 +75,27 @@ class Cycle
     count += 1 if (cells[x + 1][y + 1] == 1)
     return count
   end
-
-  def fix_strings(n)
-    if n == "1" || n == 1
-      n = 1
-    else
-      n = 0
-    end
-    return n
-  end
+  #
+  # def fix_strings(n)
+  #   if n == "1" || n == 1
+  #     n = 1
+  #   else
+  #     n = 0
+  #   end
+  #   return n
+  # end
 
   def evolve
-
 
     cells.each_with_index do |x, xi|
 
       x.each_with_index do |y, yi|
 
-        x = fix_strings(x)
-        y = fix_strings(y)
+        # x = fix_strings(x)
+        # y = fix_strings(y)
 
         @neighbors = 0
-        @neighbors += neighbor_count(x, y)
+        @neighbors += neighbor_count(xi, yi)
 
         if lonely?
           @evolved[xi][yi] = 0
