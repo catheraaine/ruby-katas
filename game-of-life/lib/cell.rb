@@ -1,13 +1,14 @@
 class Cell
-  attr_reader :state, :feeling
+  attr_reader :state
+  attr_accessor :neighbors
 
   def initialize
     @state = 0
-    # @feeling = false
+    @neighbors = 0
   end
 
-  def create(start_state)
-    @state = start_state
+  def birth
+    @state = 1
   end
 
   def alive?
@@ -17,7 +18,6 @@ class Cell
   def dead?
     @state != 1 || @state != "1"
   end
-
 
   def lonely?
     @neighbors < 2
@@ -35,5 +35,12 @@ class Cell
     @neighbors == 3
   end
 
+  def current_neighbors(living_cells)
+    @neighbors = living_cells
+  end
+
+  def neighbors?
+    @neighbors
+  end
 
 end
