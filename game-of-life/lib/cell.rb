@@ -20,19 +20,19 @@ class Cell
   end
 
   def lonely?
-    @neighbors < 2
+    (@neighbors < 2) && alive?
   end
 
   def crowded?
-    @neighbors > 3
+    (@neighbors > 3)  && alive?
   end
 
   def happy?
-    @neighbors == 2 || @neighbors == 3
+    (@neighbors == 2 || @neighbors == 3) && alive?
   end
 
   def zombie?
-    @neighbors == 3
+    (@neighbors == 3) && dead?
   end
 
   def current_neighbors(living_cells)
