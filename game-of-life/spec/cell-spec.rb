@@ -10,7 +10,7 @@ describe Cell do
     end
 
     it "has a default neighbor count of 0" do
-      expect(cell.neighbors?).to eq(0)
+      expect(cell.neighbors).to eq(0)
     end
 
   end
@@ -22,7 +22,7 @@ describe Cell do
 
   it "can store a number of living neighbors" do
     cell.current_neighbors(3)
-    expect(cell.neighbors?).to eq(3)
+    expect(cell.neighbors).to eq(3)
   end
 
 
