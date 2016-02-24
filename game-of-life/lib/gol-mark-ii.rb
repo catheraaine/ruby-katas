@@ -9,7 +9,7 @@ class Cycle
     @width = width
     @grid = grid
     @newGrid = []
-    @pattern = findPattern
+    @locations = findPlacementOfNeighbors
   end
 
   def evolve
@@ -22,12 +22,8 @@ class Cycle
   def checkState
     newGrid.each do |cell|
       if cell != "\n"
-        if cell.lonely?
+        if cell.lonely? || cell.crowded?
           cell.die
-        elsif cell.crowded?
-          cell.die
-        elsif cell.happy?
-          cell
         elsif cell.zombie?
           cell.birth
         end
@@ -40,11 +36,9 @@ class Cycle
     if cell_string == "\n"
       return cell_string
     else
+      cell = Cell.new
       if cell_string == "*"
-        cell = Cell.new
         cell.birth
-      elsif cell_string == "."
-        cell = Cell.new
       end
       return cell
     end
@@ -57,8 +51,7 @@ class Cycle
   end
 
   def returnEvolvedGrid
-    returnGrid =  newGrid.join
-    return returnGrid
+    newGrid.join
   end
 
   def countNeighbors
@@ -66,7 +59,7 @@ class Cycle
       if cell != "\n"
         translate = []
         neighbors = 0
-        @pattern.each do |x|
+        @locations.each do |x|
           if (i + x) >= 0
             translate << (i + x)
           end
@@ -86,17 +79,17 @@ class Cycle
 
   end
 
-  def findPattern
-    pattern = []
-    pattern << -(width + 2)
-    pattern << -(width + 1)
-    pattern << -(width)
-    pattern << (- 1)
-    pattern << (1)
-    pattern << (width)
-    pattern << (width + 1)
-    pattern << (width + 2)
-    return pattern
+  def findPlacementOfNeighbors
+    location = []
+    location << -(width + 2)
+    location << -(width + 1)
+    location << -(width)
+    location << (- 1)
+    location << (1)
+    location << (width)
+    location << (width + 1)
+    location << (width + 2)
+    location
   end
 
 
