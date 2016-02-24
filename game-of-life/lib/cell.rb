@@ -11,12 +11,16 @@ class Cell
     @state = 1
   end
 
+  def die
+    @state = 0
+  end
+
   def alive?
-    @state == 1 || @state == "1"
+    @state == 1
   end
 
   def dead?
-    @state != 1 || @state != "1"
+    !alive?
   end
 
   def lonely?
@@ -39,8 +43,16 @@ class Cell
     @neighbors = living_cells
   end
 
-  def neighbors?
+  def neighbors
     @neighbors
+  end
+
+  def to_s
+    if alive?
+      "*"
+    else
+      "."
+    end
   end
 
 end
