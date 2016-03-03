@@ -1,5 +1,3 @@
-
-
 class Cell
   attr_reader :livingNeighbors, :alive
 
@@ -8,12 +6,20 @@ class Cell
     @alive = false
   end
 
-  def becomeAlive
+  def giveLife
     @alive = true
+  end
+
+  def giveNeighbors(count)
+    @livingNeighbors = count
   end
 
   def neighbors
     @livingNeighbors
+  end
+
+  def alive?
+    @alive
   end
 
 end
