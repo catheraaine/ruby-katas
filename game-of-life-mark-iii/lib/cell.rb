@@ -1,4 +1,7 @@
+require_relative 'rules-runner'
+
 class Cell
+  include Rules
   attr_reader :livingNeighbors, :alive
 
   def initialize

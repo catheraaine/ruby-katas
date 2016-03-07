@@ -1,7 +1,7 @@
 require_relative '../lib/cell'
 
 describe Cell do
-  subject(:cell) { Cell.new) }
+  subject(:cell) { Cell.new}
   context "when a cell is created" do
     it "has no living neighbors" do
       expect(cell.neighbors).to eq(0)
