@@ -11,7 +11,8 @@ describe Navigator do
 
   context "when given a grid of cells" do
     it "counts the living neighbors for each cell" do
-
+      puts nav.mapCells
+      expect(nav.mapCells).to eq([[0,0,0],[0,1,0],[0,0,0]])
     end
 
   end
