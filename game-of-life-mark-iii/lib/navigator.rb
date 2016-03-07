@@ -1,6 +1,5 @@
 require 'cell'
 
-
 class Navigator
   attr_reader :cells, :newcells
 
@@ -21,7 +20,7 @@ class Navigator
         # the cell is located at x, y
         # the state of the cell is in 'cell'
         newcell = makeCell(cell)
-        newcells[x][y] = newcell
+        @newcells[x][y] = newcell
 
       end
     end
@@ -30,8 +29,18 @@ class Navigator
     return @newcells
   end
 
+  def makeCell(cell)
+    newcell = Cell.new
+    if cell == 1
+      newcell.giveLife
+    end
+
+    return newcell
+
+  end
+
   def populateNeighbors
-    newcells.each_with_index do |row, y|
+    @newcells.each_with_index do |row, y|
       row.each_with_index do |cell, x|
         cell.giveNeighbors(countNeighbors(x, y))
       end
@@ -39,59 +48,45 @@ class Navigator
 
   end
 
-  def countNeighbors (x, y)
+  def countNeighbors(x, y)
+    locations = determineNeighborLocations(x, y)
     count = 0
-    if y - 1 < 0
-      oneUp = nil
-    else
-      oneUp = y - 1
+    locations.each do |neighbor|
+      if neighbor.alive?
+        count += 1
+      end
     end
-
-    if y + 1 < 0
-      oneDown = nil
-    else
-      oneDown = y + 1
-    end
-
-    if x - 1 < 0
-      oneLeft = nil
-    else
-      oneLeft = x - 1
-    end
-
-    if x + 1 < 0
-      oneRight = nil
-    else
-      oneRight = x + 1
-    end
-
-    if oneUp
-      count += 1 if oneLeft && newcells[oneLeft][oneUp].alive?
-      count += 1 if newcells[x][oneUp].alive?
-      count += 1 if oneRight && newcells[oneRight][oneUp].alive?
-    end
-
-    count += 1 if oneLeft && newcells[oneLeft][y].alive?
-    count += 1 if oneRight && newcells[oneRight][y].alive?
-
-    if oneDown
-      count += 1 if oneLeft && newcells[oneLeft][oneDown].alive?
-      count += 1 if newcells[x][oneDown].alive?
-      count += 1 if oneRight && newcells[oneRight][oneDown].alive?
-    end
-
     return count
-
   end
 
+  def determineNeighborLocations(x, y)
+    locations = []
+    oneUp = y - 1
+    oneDown = y + 1
+    oneLeft = x - 1
+    oneRight = x + 1
 
-  def makeCell(cell)
-    newcell = Cell.new
-    if cell == 1
-      newcell.giveLife
+    if oneUp > 0
+      locations << @newcells[oneLeft][oneUp] unless oneLeft < 0
+      locations << @newcells[x][oneUp]
+      locations << @newcells[oneRight][oneUp] unless oneRight < 0
     end
-    return newcell
+
+    locations << @newcells[oneLeft][y] unless oneLeft < 0
+    locations << @newcells[oneRight][y] unless nil
+
+    if oneDown > 0
+      locations << @newcells[oneLeft][oneDown] unless oneLeft < 0
+      locations << @newcells[x][oneDown]
+      locations << @newcells[oneRight][oneDown] unless oneRight < 0
+    end
+
+    return locations
 
   end
+
+  def checkNeighborForLife (neighbor)
+  end
+
 
 end
