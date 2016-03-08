@@ -2,15 +2,21 @@ require_relative 'rules-runner'
 
 class Cell
   include Rules
-  attr_reader :livingNeighbors, :alive
+  attr_reader :livingNeighbors, :alive, :x, :y
 
-  def initialize
+  def initialize(x, y)
     @livingNeighbors = 0
     @alive = false
+    @x = x || nil
+    @y = y || nil
   end
 
   def giveLife
     @alive = true
+  end
+
+  def giveDeath
+    @alive = false
   end
 
   def giveNeighbors(count)
@@ -24,5 +30,6 @@ class Cell
   def alive?
     @alive
   end
+
 
 end

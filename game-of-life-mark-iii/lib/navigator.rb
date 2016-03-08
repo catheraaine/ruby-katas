@@ -1,4 +1,4 @@
-require 'cell'
+require_relative 'cell'
 
 class Navigator
   attr_reader :cells, :newcells
@@ -10,82 +10,75 @@ class Navigator
     @newcells = Array.new(height){Array.new(width)}
   end
 
-  def cells
-    @cells
-  end
-
   def mapCells
     cells.each_with_index do |row, y|
       row.each_with_index do |cell, x|
-        # the cell is located at x, y
-        # the state of the cell is in 'cell'
-        newcell = makeCell(cell)
+        newcell = makeCell(cell, x, y)
+        neighbors = countNeighbors(newcell)
+        newcell.giveNeighbors(neighbors)
         @newcells[x][y] = newcell
-
       end
     end
-
-    populateNeighbors
-    return @newcells
+    @newcells
   end
 
-  def makeCell(cell)
-    newcell = Cell.new
+  def makeCell(cell, x, y)
+    newcell = Cell.new(x, y)
     if cell == 1
       newcell.giveLife
     end
-
-    return newcell
-
+    newcell
   end
 
-  def populateNeighbors
-    @newcells.each_with_index do |row, y|
-      row.each_with_index do |cell, x|
-        cell.giveNeighbors(countNeighbors(x, y))
-      end
-    end
-
-  end
-
-  def countNeighbors(x, y)
-    locations = determineNeighborLocations(x, y)
+  def countNeighbors(cell)
     count = 0
-    locations.each do |neighbor|
-      if neighbor.alive?
-        count += 1
-      end
+
+    # Northwest
+    if cell.x > 0 && cell.y > 0
+      count += 1 if @newcells[cell.x - 1][cell.y - 1].alive?
     end
-    return count
+
+    # North
+    if cell.y > 0
+      count += 1 if @newcells[cell.x][cell.y - 1].alive?
+    end
+
+    # Northeast
+    if cell.x < (@height - 1) && cell.y > 0
+      count += 1 if @newcells[cell.x + 1][cell.y - 1].alive?
+    end
+
+    # West
+    if cell.x > 0
+      count += 1 if @newcells[cell.x - 1][cell.y].alive?
+    end
+
+    # East
+    if cell.x < (@height - 1)
+      count += 1 if @newcells[cell.x + 1][cell.y].alive?
+    end
+
+    # Southwest
+    if cell.x > 0 && cell.y < (@width - 1)
+      count += 1 if @newcells[cell.x - 1][cell.y + 1].alive?
+    end
+
+    # South
+    if cell.y < (@width - 1)
+      count += 1 if @newcells[cell.x][cell.y + 1].alive?
+    end
+
+    # Southeast
+    if cell.x < (@height - 1) && cell.y < (@width - 1)
+      count += 1 if @newcells[cell.x + 1][cell.y + 1].alive?
+    end
+
+    count
   end
 
-  def determineNeighborLocations(x, y)
-    locations = []
-    oneUp = y - 1
-    oneDown = y + 1
-    oneLeft = x - 1
-    oneRight = x + 1
 
-    if oneUp > 0
-      locations << @newcells[oneLeft][oneUp] unless oneLeft < 0
-      locations << @newcells[x][oneUp]
-      locations << @newcells[oneRight][oneUp] unless oneRight < 0
-    end
-
-    locations << @newcells[oneLeft][y] unless oneLeft < 0
-    locations << @newcells[oneRight][y] unless nil
-
-    if oneDown > 0
-      locations << @newcells[oneLeft][oneDown] unless oneLeft < 0
-      locations << @newcells[x][oneDown]
-      locations << @newcells[oneRight][oneDown] unless oneRight < 0
-    end
-
-    return locations
-
-  end
-
-  def checkNeighborForLife (neighbor)
+  def checkNeighborForLife?(neighbor)
+    neighbor.alive?
   end
 
 
