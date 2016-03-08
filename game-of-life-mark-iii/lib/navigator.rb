@@ -8,18 +8,26 @@ class Navigator
     @width = width
     @height = height
     @newcells = Array.new(height){Array.new(width)}
+    populateNewCells
+    populateNeighbors
   end
-
-  def mapCells
+  
+  def populateNewCells
     cells.each_with_index do |row, y|
       row.each_with_index do |cell, x|
         newcell = makeCell(cell, x, y)
-        neighbors = countNeighbors(newcell)
-        newcell.giveNeighbors(neighbors)
         @newcells[x][y] = newcell
       end
     end
-    @newcells
+  end
+
+  def populateNeighbors
+    @newcells.each do |row|
+      row.each do |cell|
+        neighbors = countNeighbors(cell)
+        cell.giveNeighbors(neighbors)
+      end
+    end
   end
 
   def makeCell(cell, x, y)
@@ -35,7 +43,7 @@ class Navigator
 
     # Northwest
     if cell.x > 0 && cell.y > 0
-      count += 1 if @newcells[cell.x - 1][cell.y - 1].alive?
+      count += 1 if @newcells[cell.x - 1][cell.y - 1]
     end
 
     # North
