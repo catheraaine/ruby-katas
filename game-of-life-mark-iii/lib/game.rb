@@ -2,15 +2,22 @@ require_relative 'navigator'
 require_relative 'cell'
 
 class Game
+  attr_reader :grid, :evolvedCells, :height, :width
 
-  def initialize(height, width, grid)
-    nav = Navigator.new(height, width, grid)
+  def initialize(grid)
+    @grid = grid
+    @width = grid[0].count
+    @height = grid.count
+    @evolvedCells = Array.new(height){Array.new(width)}
   end
 
   def evolve
-    mappedcells = nav.mapCells
-    
+    grid
+  end
 
+  def callNavigator
+    nav = Navigator.new(height, width, grid)
+    mappedcells = nav.mapCells
   end
 
 end
