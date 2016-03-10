@@ -7,8 +7,8 @@ class Cell
   def initialize(x, y)
     @livingNeighbors = 0
     @alive = false
-    @x = x || nil
-    @y = y || nil
+    @x = x
+    @y = y
   end
 
   def giveLife
@@ -29,6 +29,10 @@ class Cell
 
   def alive?
     @alive
+  end
+
+  def dead?
+    !alive?
   end
 
 

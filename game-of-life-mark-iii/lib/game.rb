@@ -12,12 +12,40 @@ class Game
   end
 
   def evolve
-    grid
+    callNavigator
+    determineNextState(@mappedcells)
+    buildNextState(@mappedcells)
+    @evolvedCells
+  end
+
+  def determineNextState(cells)
+    cells.each_with_index do |row, y|
+      row.each_with_index do |cell, x|
+        if cell.lonely? || cell.crowded?
+          cell.giveDeath
+        elsif cell.happy? || cell.zombie?
+          cell.giveLife
+        end
+      end
+    end
+  end
+
+  def buildNextState(cells)
+    cells.each_with_index do |row, y|
+      row.each_with_index do |cell, x|
+        if cell.alive?
+          @evolvedCells[x][y] = 1
+        else
+          @evolvedCells[x][y] = 0
+        end
+      end
+    end
   end
 
   def callNavigator
-    nav = Navigator.new(height, width, grid)
-    mappedcells = nav.mapCells
+    nav = Navigator.new(height, width, @grid)
+    @mappedcells = nav.newcells
+    @mappedcells
   end
 
 end

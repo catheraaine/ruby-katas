@@ -11,7 +11,7 @@ class Navigator
     populateNewCells
     populateNeighbors
   end
-  
+
   def populateNewCells
     cells.each_with_index do |row, y|
       row.each_with_index do |cell, x|

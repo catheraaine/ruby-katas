@@ -1,19 +1,19 @@
 module Rules
 
-  def happy?(cell)
-    (cell.neighbors == 2 || cell.neighbors == 3) && (cell.alive?)
+  def happy?
+    (self.neighbors == 2 || self.neighbors == 3) && (self.alive?)
   end
 
-  def lonely?(cell)
-    (cell.neighbors < 2) && (cell.alive?)
+  def lonely?
+    (self.neighbors < 2) && (self.alive?)
   end
 
-  def crowded?(cell)
-    (cell.neighbors > 3) && cell.alive?
+  def crowded?
+    (self.neighbors > 3) && (self.alive?)
   end
 
-  def zombie?(cell)
-    (cell.neighbors == 3) && !cell.alive?
+  def zombie?
+    (self.neighbors == 3) && (self.dead?)
   end
 
 end
