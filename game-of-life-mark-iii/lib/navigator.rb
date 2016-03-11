@@ -43,7 +43,7 @@ class Navigator
 
     # Northwest
     if cell.x > 0 && cell.y > 0
-      count += 1 if @newcells[cell.x - 1][cell.y - 1]
+      count += 1 if @newcells[cell.x - 1][cell.y - 1].alive?
     end
 
     # North
@@ -84,10 +84,8 @@ class Navigator
     count
   end
 
-
   def checkNeighborForLife?(neighbor)
     neighbor.alive?
   end
-
 
 end
