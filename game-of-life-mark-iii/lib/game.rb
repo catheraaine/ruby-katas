@@ -18,12 +18,18 @@ class Game
     @evolvedCells
   end
 
+  def callNavigator
+    nav = Navigator.new(height, width, @grid)
+    @mappedcells = nav.newcells
+    @mappedcells
+  end
+
   def determineNextState(cells)
     cells.each_with_index do |row, y|
       row.each_with_index do |cell, x|
         if cell.lonely? || cell.crowded?
           cell.giveDeath
-        elsif cell.happy? || cell.zombie?
+        elsif cell.zombie?
           cell.giveLife
         end
       end
@@ -40,12 +46,6 @@ class Game
         end
       end
     end
-  end
-
-  def callNavigator
-    nav = Navigator.new(height, width, @grid)
-    @mappedcells = nav.newcells
-    @mappedcells
   end
 
 end
